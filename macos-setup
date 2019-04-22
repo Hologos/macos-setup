@@ -1,0 +1,44 @@
+#! /usr/bin/env bash
+
+echo "Preparing"
+
+echo "› setting environment variables"
+export MACOS_SETUP_ROOT="${HOME}/.macos-setup"
+export MACOS_SETUP_LOG_FILEPATH="${MACOS_SETUP_ROOT}/install.log"
+
+echo "› loading libraries"
+. "libs/helpers.sh"
+
+echo "› loading sources"
+. "sources/git-repos.sh"
+. "sources/directories.sh"
+. "sources/symlinks.sh"
+
+echo "› checking prerequisites"
+check_prerequisites
+
+echo
+echo "Setting up the machine"
+
+echo "› creating directories"
+
+for dir_to_install in "${dirs_to_install[@]}"; do
+    create_directory "${dir_to_install}"
+done
+
+echo "› creating symlinks"
+
+for link_source in "${!links_to_install[@]}"; do
+    link_file "${link_source}" "${links_to_install[${link_source}]}"
+done
+
+echo "› cloning git repositories"
+
+for repo_link in "${!repos_to_install[@]}"; do
+    clone_repo "${repo_link}" "${repos_to_install[${repo_link}]}"
+done
+
+echo
+echo "Installing software via Brew"
+echo
+brew bundle --verbose --file "${HOME}/Brewfile"
