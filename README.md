@@ -18,6 +18,14 @@ First, make sure you have all those things installed (at least the system ones):
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
+### Install Bash
+
+macOS comes with bash version 3. We need atleast version 4.
+
+```bash
+brew install bash
+```
+
 ### Install dependencies
 
 ```bash
