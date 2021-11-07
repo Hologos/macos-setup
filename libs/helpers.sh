@@ -199,3 +199,15 @@ function check_prerequisites() {
     check_brew
     check_git
 }
+
+function set_brew_zsh() {
+    local zsh_path="$(brew --prefix)/bin/zsh"
+
+    if [[ "$(grep "${zsh_path}" /etc/shells)" == "${zsh_path}" ]]; then
+        skipped "brew zsh is already set as standard shell"
+        return 0
+    fi
+
+    echo "${zsh_path}" | sudo tee -a /etc/shells > /dev/null
+    report_status "allowing ${zsh_path} as standard shell"
+}

@@ -42,3 +42,9 @@ echo
 echo "Installing software via Brew"
 echo
 brew bundle --verbose --file "${HOME}/Brewfile"
+
+echo
+echo "Post installation tasks"
+
+echo "› allowing Brew zsh as standard shell"
+set_brew_zsh
