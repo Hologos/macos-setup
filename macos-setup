@@ -9,13 +9,13 @@ export MACOS_SETUP_LOG_FILEPATH="${MACOS_SETUP_ROOT}/install.log"
 echo "› loading libraries"
 . "libs/helpers.sh"
 
+echo "› checking prerequisites"
+check_prerequisites
+
 echo "› loading sources"
 . "sources/git-repos.sh"
 . "sources/directories.sh"
 . "sources/symlinks.sh"
-
-echo "› checking prerequisites"
-check_prerequisites
 
 echo
 echo "Setting up the machine"

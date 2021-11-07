@@ -167,6 +167,15 @@ function clone_repo() {
     report_status "cloning repository ${repo_url} to ${repo_target_dirpath}"
 }
 
+function check_bash() {
+    if [[ "${BASH_VERSINFO[0]}" -lt 4 ]]; then
+        fail "bash version has to be atleast 4 or newer (current version ${BASH_VERSION})"
+        exit 1
+    else
+        success "minimal bash version installed (current version ${BASH_VERSION})"
+    fi
+}
+
 function check_brew() {
     if ! is_installed "brew"; then
         fail "Brew is not installed"
@@ -186,6 +195,7 @@ function check_git() {
 }
 
 function check_prerequisites() {
+    check_bash
     check_brew
     check_git
 }
