@@ -1,0 +1,12 @@
+#! /usr/bin/env bash
+
+MACOS_SETUP_ROOT="$(dirname "${BASH_SOURCE[0]}")"
+MACOS_SETUP_SOURCES_ROOT="${MACOS_SETUP_ROOT}/sources"
+
+cd "${MACOS_SETUP_ROOT}" || exit 1
+
+git pull --rebase
+brew bundle dump --force --describe --file "${MACOS_SETUP_SOURCES_ROOT}/Brewfile"
+
+echo
+echo "Don't forget to commit & push changes."
