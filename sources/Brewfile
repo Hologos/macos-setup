@@ -1,3 +1,4 @@
+tap "hologos/core"
 tap "homebrew/bundle"
 tap "homebrew/cask"
 tap "homebrew/cask-drivers"
@@ -26,7 +27,7 @@ brew "git"
 # GNU Pretty Good Privacy (PGP) package
 brew "gnupg"
 # Development kit for the Java programming language
-brew "openjdk@11"
+brew "openjdk"
 # Open-source build automation tool based on the Groovy and Kotlin DSL
 brew "gradle"
 # GNU grep, egrep and fgrep
@@ -37,22 +38,24 @@ brew "httpd"
 brew "httpie"
 # Mac App Store command-line interface
 brew "mas"
-# Development kit for the Java programming language
-brew "openjdk"
 # Java-based project management
 brew "maven"
 # Open source relational database management system
-brew "mysql"
+brew "mysql", restart_service: true
 # Fast, highly customisable system info script
 brew "neofetch"
 # Port scanning utility for large networks
 brew "nmap"
 # Platform built on V8 to build network applications
 brew "node"
+# Platform built on V8 to build network applications
+brew "node@14"
 # Manage multiple Node.js versions
 brew "nvm"
 # Open client for Cisco AnyConnect VPN
 brew "openconnect"
+# Development kit for the Java programming language
+brew "openjdk@11"
 # OpenBSD freely-licensed SSH connectivity tools
 brew "openssh"
 # Cryptography and SSL/TLS Toolkit
@@ -68,7 +71,7 @@ brew "pass"
 # Dependency retriever for version control and archives
 brew "peru"
 # General-purpose scripting language
-brew "php", link: false
+brew "php"
 # Display the PID number for a given process name
 brew "pidof"
 # Pinentry for GPG on Mac
@@ -98,13 +101,16 @@ brew "youtube-dl"
 # UNIX shell (command interpreter)
 brew "zsh"
 # General-purpose scripting language
-brew "shivammathur/php/php@7.3", link: true
+brew "shivammathur/php/php@7.3"
 # Password manager that keeps all passwords secure behind one password
 cask "1password"
+# View, print, and comment on PDF documents
+cask "adobe-acrobat-reader"
 # UML (Unified Modeling Language) design app
 cask "celestialteapot-runway"
 # Disk space visualizer
 cask "daisydisk"
+# Translate words without ever opening a dictionary
 cask "dictionaries"
 # Voice and text chat software
 cask "discord"
@@ -114,6 +120,8 @@ cask "displaylink"
 cask "displaylink-login-extension"
 # Client for the Dropbox cloud storage service
 cask "dropbox"
+# Productivity app
+cask "dropzone"
 # Web browser
 cask "firefox"
 # Desktop client for GitHub repositories
@@ -152,6 +160,7 @@ cask "plex"
 cask "plex-media-server"
 # Collaboration platform for API development
 cask "postman"
+# Flexible software sketchbook and a language for learning how to code
 cask "processing"
 # G-code generator for 3D printers (RepRap, Makerbot, Ultimaker etc.)
 cask "prusaslicer"
@@ -161,6 +170,8 @@ cask "qbittorrent"
 cask "skype"
 # Team communication and collaboration software
 cask "slack"
+# Video game digital distribution service
+cask "steam"
 # Backup, recovery and cloning software
 cask "superduper"
 # Native GUI tool for relational databases
