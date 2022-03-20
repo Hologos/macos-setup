@@ -1,0 +1,83 @@
+#! /usr/bin/env bash
+
+set -uo pipefail
+
+export_dirpath="${HOME}/.defaults"
+local_machine_export_dirpath="${export_dirpath}/local"
+remote_machine_export_dirpath="${export_dirpath}/remote"
+
+# ACTION_CLEAN=0
+# ACTION_READ=0
+
+# while [[ ${#} -ne 0 ]] && [[ "${1}" != "" ]]; do
+#   case "${1}" in
+#     build )
+#       ACTION_BUILD=1
+#       shift
+#     ;;
+
+#     upload )
+#       ACTION_UPLOAD=1
+#       shift
+#     ;;
+
+#     prod )
+#       ACTION_TARGET="prod"
+#       shift
+#     ;;
+
+#     * )
+#       >&2 echo "Unknown action [${1}]."
+#       shift
+#   esac
+# done
+
+
+# arg_1=""
+
+# if [[ ${#} -eq 1 ]]; then
+#     arg_1="${1}"
+# fi
+
+# if [[ "${arg_1}" == "-" ]] || [[ "${arg_1}" == "--help" ]]; then
+#     >&2 echo
+#     >&2 echo "    -d | --debug"
+#     >&2 echo "        Don't do anything, just print info."
+#     exit 1
+# elif [[ "${arg_1}" == "-d" ]] || [[ "${arg_1}" == "--debug" ]]; then
+#     DEBUG=1
+# fi
+
+if [[ ! -d "${export_dirpath}" ]]; then
+    echo
+    echo "Directory '${export_dirpath}' doesn't exist, creating..."
+
+    mkdir -p "${export_dirpath}"
+fi
+
+# pokud existují adresáře, tak nabídnout je smazat
+if [[ -d "${local_machine_export_dirpath}" ]]; then
+    echo
+    echo "Directory '${local_machine_export_dirpath}' exists!"
+else
+    mkdir -p "${local_machine_export_dirpath}"
+fi
+
+# pokud existují adresáře, tak nabídnout je smazat
+if [[ -d "${remote_machine_export_dirpath}" ]]; then
+    echo
+    echo "Directory '${remote_machine_export_dirpath}' exists!"
+else
+    mkdir -p "${remote_machine_export_dirpath}"
+fi
+
+for domain in $(defaults domains); do
+    domain="${domain//,/}"
+    local_domain_plist="${local_machine_export_dirpath}/${domain}.plist"
+
+    echo
+    echo "${domain}"
+
+    defaults read "${domain}" > "${local_domain_plist}"
+done
+
