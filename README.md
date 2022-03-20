@@ -100,7 +100,11 @@ sudo reboot
 Now you just have to copy all stuff you need from the old machine.
 
 ```bash
+# using compression
 ssh username@old_machine 'tar czf - <dir>' | tar xvzf - -C <target>
+
+# no commpression
+ssh username@old_machine 'tar c - <dir>' | tar xvf - -C <target>
 ```
 
 ### Now you are all set
