@@ -99,7 +99,9 @@ sudo reboot
 
 Now you just have to copy all stuff you need from the old machine.
 
-`ssh username@old_machine 'tar czf - <dir>' | tar xvzf - -C <target>`
+```bash
+ssh username@old_machine 'tar czf - <dir>' | tar xvzf - -C <target>
+```
 
 ### Now you are all set
 
