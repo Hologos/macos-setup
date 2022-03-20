@@ -169,10 +169,10 @@ function clone_repo() {
 
 function check_bash() {
     if [[ "${BASH_VERSINFO[0]}" -lt 4 ]]; then
-        fail "bash version has to be atleast 4 or newer (current version ${BASH_VERSION})"
+        fail "bash version has to be atleast 4 or newer (current version: ${BASH_VERSION})"
         exit 1
     else
-        success "minimal bash version installed (current version ${BASH_VERSION})"
+        success "minimal bash version installed (current version: ${BASH_VERSION})"
     fi
 }
 
