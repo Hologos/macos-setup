@@ -3,8 +3,12 @@
 set -uo pipefail
 
 export_dirpath="${HOME}/.defaults"
-local_machine_export_dirpath="${export_dirpath}/local"
-remote_machine_export_dirpath="${export_dirpath}/remote"
+global_export_dirpath="${export_dirpath}/global"
+user_export_dirpath="${export_dirpath}/user"
+local_global_machine_export_dirpath="${global_export_dirpath}/local"
+local_user_machine_export_dirpath="${user_export_dirpath}/local"
+remote_global_machine_export_dirpath="${global_export_dirpath}/remote"
+remote_user_machine_export_dirpath="${user_export_dirpath}/remote"
 
 # ACTION_CLEAN=0
 # ACTION_READ=0
@@ -48,6 +52,47 @@ remote_machine_export_dirpath="${export_dirpath}/remote"
 #     DEBUG=1
 # fi
 
+function delete_or_create_dir() {
+    local dirpath="${1}"
+
+    # pokud existují adresáře, tak nabídnout je smazat
+    if [[ -d "${dirpath}" ]]; then
+        echo
+        echo "Directory '${dirpath}' exists!"
+    else
+        mkdir -p "${dirpath}"
+    fi
+}
+
+function export_defaults() {
+    local namespace="${1}"
+    local domain
+
+    # upravit, aby se neduplikoval kód
+
+    if [[ "${namespace}" == "global" ]]; then
+        for domain in $(sudo defaults domains); do
+            domain="${domain//,/}"
+            local local_domain_plist="${local_global_machine_export_dirpath}/${domain}.plist"
+
+            echo
+            echo "${domain}"
+
+            sudo defaults read "${domain}" > "${local_domain_plist}"
+        done
+    else
+        for domain in $(defaults domains); do
+            domain="${domain//,/}"
+            local local_domain_plist="${local_user_machine_export_dirpath}/${domain}.plist"
+
+            echo
+            echo "${domain}"
+
+            defaults read "${domain}" > "${local_domain_plist}"
+        done
+    fi
+}
+
 if [[ ! -d "${export_dirpath}" ]]; then
     echo
     echo "Directory '${export_dirpath}' doesn't exist, creating..."
@@ -55,29 +100,11 @@ if [[ ! -d "${export_dirpath}" ]]; then
     mkdir -p "${export_dirpath}"
 fi
 
-# pokud existují adresáře, tak nabídnout je smazat
-if [[ -d "${local_machine_export_dirpath}" ]]; then
-    echo
-    echo "Directory '${local_machine_export_dirpath}' exists!"
-else
-    mkdir -p "${local_machine_export_dirpath}"
-fi
+delete_or_create_dir "${local_global_machine_export_dirpath}"
+delete_or_create_dir "${local_user_machine_export_dirpath}"
+delete_or_create_dir "${remote_global_machine_export_dirpath}"
+delete_or_create_dir "${remote_user_machine_export_dirpath}"
 
-# pokud existují adresáře, tak nabídnout je smazat
-if [[ -d "${remote_machine_export_dirpath}" ]]; then
-    echo
-    echo "Directory '${remote_machine_export_dirpath}' exists!"
-else
-    mkdir -p "${remote_machine_export_dirpath}"
-fi
 
-for domain in $(defaults domains); do
-    domain="${domain//,/}"
-    local_domain_plist="${local_machine_export_dirpath}/${domain}.plist"
-
-    echo
-    echo "${domain}"
-
-    defaults read "${domain}" > "${local_domain_plist}"
-done
-
+export_defaults "global"
+export_defaults "user"
