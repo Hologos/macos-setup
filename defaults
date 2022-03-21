@@ -3,12 +3,12 @@
 set -uo pipefail
 
 export_dirpath="${HOME}/.defaults"
-global_export_dirpath="${export_dirpath}/global"
-user_export_dirpath="${export_dirpath}/user"
-local_global_machine_export_dirpath="${global_export_dirpath}/local"
-local_user_machine_export_dirpath="${user_export_dirpath}/local"
-remote_global_machine_export_dirpath="${global_export_dirpath}/remote"
-remote_user_machine_export_dirpath="${user_export_dirpath}/remote"
+local_export_dirpath="${export_dirpath}/local"
+remote_export_dirpath="${export_dirpath}/remote"
+local_global_machine_export_dirpath="${local_export_dirpath}/global"
+local_user_machine_export_dirpath="${local_export_dirpath}/user"
+remote_global_machine_export_dirpath="${remote_export_dirpath}/global"
+remote_user_machine_export_dirpath="${remote_export_dirpath}/user"
 
 # ACTION_CLEAN=0
 # ACTION_READ=0
